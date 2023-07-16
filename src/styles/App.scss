@@ -4,7 +4,7 @@
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
-  height: 10vmin;
+  height: 25vmin;
   pointer-events: none;
 }
 
@@ -34,7 +34,25 @@
 * {
   box-sizing: border-box;
 }
-
+.main {
+  max-width: 90%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.form {
+  max-width: 80%;
+  display: flex;
+  align-items: center;
+}
+.list {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
+}
 /* Full-width input fields */
 input[type="text"],
 input[type="password"] {
