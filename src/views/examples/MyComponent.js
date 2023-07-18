@@ -30,6 +30,13 @@ class MyComponent extends React.Component {
       password: "",
     });
   };
+  componentDidMount() {
+    console.log(">>>>> run compnent did mount ");
+  }
+  componentDidUpdate(prevProps, propState) {
+    console.log(">>> run did update  prevProps:", prevProps);
+    console.log(">>>> run did update propState:", propState);
+  }
   render() {
     return (
       <div className="form">
