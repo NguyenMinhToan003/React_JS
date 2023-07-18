@@ -17,10 +17,17 @@ class MyComponent extends React.Component {
   };
   handerSubmit = (event) => {
     event.preventDefault();
-    this.props.handerSubmit({
-      id: Math.floor(Math.random() * 10000),
-      email: this.state.email,
-      password: this.state.password,
+    if (!this.state.email || !this.state.password) {
+      alert("Missing commit :(");
+    } else
+      this.props.handerSubmit({
+        id: Math.floor(Math.random() * 10000),
+        email: this.state.email,
+        password: this.state.password,
+      });
+    this.setState({
+      email: "",
+      password: "",
     });
   };
   render() {
@@ -46,6 +53,7 @@ class MyComponent extends React.Component {
             <input
               type="password"
               placeholder="Enter Password"
+              value={this.state.password}
               onChange={(event) => this.handerPassword(event)}
             />
             <div className="clearfix">
