@@ -1,27 +1,42 @@
 import React from "react";
 
 class ChooseFile extends React.Component {
-  myFunction() {
-    var file = document.getElementById("file").files[0];
-    var reader = new FileReader();
-    // it's onload event and you forgot (parameters)
-    reader.onload = function (e) {
-      var image = document.createElement("img");
-      // the result image data
-      image.src = e.target.result;
-      document.body.appendChild(image);
+  myFunction = () => {
+    const imgInp = document.querySelector("#imgInp");
+    const formChoose = document.querySelector(".formChoose");
+
+    // const blah = document.getElementById("blah");
+    imgInp.onchange = () => {
+      let [...file] = imgInp.files;
+      file.forEach((el) => {
+        if (el) {
+          let img = document.createElement("img");
+          img.setAttribute("id", "blah");
+          img.src = URL.createObjectURL(el);
+          formChoose.appendChild(img);
+        }
+      });
     };
-    // you have to declare the file loading
-    reader.readAsDataURL(file);
-  }
+  };
+  handerSubmit = () => {};
   render() {
     return (
-      <div>
-        <input type="file" name="filename" id="file" multiple />
-        <button type="button" onclick={() => this.myFunction}>
-          Display
+      <form runat="server" className="formChoose">
+        <button
+          clastName="resetFile"
+          type="submit"
+          onClick={() => this.handerSubmit()}>
+          Reset
         </button>
-      </div>
+        <input
+          accept="image/*"
+          type="file"
+          id="imgInp"
+          multiple
+          onClick={() => this.myFunction()}
+        />
+        {/* <img id="blah" alt="img" /> */}
+      </form>
     );
   }
 }

@@ -9,7 +9,8 @@
   pointer-events: none;
 }
 
-.App-header {
+.App-header,
+.main {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -36,16 +37,28 @@
   box-sizing: border-box;
 }
 .main {
+  background-color: white;
+  color: black;
+
+  font-size: 16px;
   max-width: 90%;
   margin: 0 auto;
   display: flex;
   align-items: flex-start;
+  flex-direction: row;
   gap: 5px;
 }
 .form {
   max-width: 80%;
   display: flex;
   align-items: center;
+}
+.formChoose {
+  max-width: 50%;
+}
+#blah {
+  max-width: 540px;
+  max-height: 360px;
 }
 .list {
   display: flex;
@@ -54,6 +67,12 @@
   flex-direction: column;
   margin: 0 auto;
 }
+.btn-edit {
+  border-radius: 100rem;
+  box-shadow: 0 10px 0 0 0 #282c34;
+  transition: all 0.25s ease;
+}
+
 /* Full-width input fields */
 input[type="text"],
 input[type="password"] {
@@ -84,7 +103,7 @@ button {
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 100%;
+
   opacity: 0.9;
 }
 

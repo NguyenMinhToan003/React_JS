@@ -29,17 +29,19 @@ class ChildComponent extends Component {
                     <li key={item.id}>
                       Id: {item.id} , Email: {item.email} , Password:{" "}
                       {item.password}
-                      <input
-                        type="button"
-                        value="delete"
-                        onClick={() => this.handerDeleteUser(item)}
-                      />
+                      <button
+                        className="btn-edit"
+                        onClick={() => this.handerDeleteUser(item)}>
+                        delete
+                      </button>
                     </li>
                   </>
                 );
               })}
             </ul>
-            <button onClick={() => this.handerShow()}>hiden</button>
+            <button className="signupbtn" onClick={() => this.handerShow()}>
+              hiden
+            </button>
           </>
         )}
       </div>
