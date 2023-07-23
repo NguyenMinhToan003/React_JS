@@ -10,8 +10,8 @@ class InputTodo extends React.Component {
     });
   };
   handerSubmit = (event) => {
-    if (this.state.content === "") return alert("Missing commit");
     event.preventDefault();
+    if (this.state.content === "") return alert("Missing commit");
     this.props.addContent({
       id: Math.floor(Math.random() * 10000),
       content: this.state.content,

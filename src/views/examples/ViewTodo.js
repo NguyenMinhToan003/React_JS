@@ -2,120 +2,103 @@ import React from "react";
 
 class ViewTodo extends React.Component {
   state = {
-    delete: false,
-    edit: false,
-    add: false,
+    currentStatus: "",
     dataDelete: [],
+    dataEdit: {
+      id: "",
+      content: "",
+    },
   };
-  handerDelete = (el) => {
-    if (this.state.delete) {
-      let tag = document.getElementById(el);
-      tag.classList.toggle("checked");
-      if (this.state.dataDelete.includes(el)) {
+  handlerDelete = (el) => {
+    // handler view
+    let tag = document.getElementById(el);
+    tag.classList.toggle("close");
+    tag.classList.toggle("checked");
+    // handler data
+    if (this.state.dataDelete.includes(el)) {
+      this.setState({
+        dataDelete: this.state.dataDelete.filter((item) => item !== el),
+      });
+    } else
+      this.setState({
+        dataDelete: [...this.state.dataDelete, el],
+      });
+  };
+  handlerAdd = () => {
+    if (!this.state.add) return;
+  };
+  handlerEdit = (el) => {
+    if (el !== this.state.dataEdit.id) {
+      let tag;
+      if (this.state.dataEdit.id) {
+        tag = document.getElementById(this.state.dataEdit.id);
+        tag.removeChild(
+          document.getElementById(`input${this.state.dataEdit.id}`)
+        );
+      }
+      tag = document.getElementById(el);
+      tag.classList.toggle("close");
+      let form = document.createElement("form");
+      form.setAttribute("id", `input${el}`);
+      form.innerHTML = `
+      <input type="text" style="border-radius: 1000rem" name="inputName"/>
+      <button type="submit" style="display:none">Submit form</button>`;
+      tag.appendChild(form);
+      this.setState({
+        dataEdit: {
+          id: el,
+        },
+      });
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
         this.setState({
-          dataDelete: this.state.dataDelete.filter((item) => item !== el),
+          dataEdit: {
+            id: el,
+            content: event.target.elements.inputName.value,
+          },
         });
-      } else
-        this.setState({
-          dataDelete: [...this.state.dataDelete, el],
-        });
+      });
     }
   };
-  handerEdit = (el) => {
-    this.props.editContent(el);
-  };
-  handerCheckBox = (index) => {
-    // 1: delete , 2: edit
 
-    // hander
-    if (index === 1) {
-      if (this.state.delete) return;
-      if (this.state.edit || this.state.add)
-        this.setState({
-          edit: false,
-          add: false,
-        });
-      this.setState({
-        delete: !this.state.delete,
-      });
-    } else if (index === 2) {
-      if (this.state.edit) return;
-      if (this.state.delete || this.state.add)
-        this.setState({
-          delete: false,
-          add: false,
-        });
-      this.setState({
-        edit: !this.state.edit,
-      });
-    } else if (index === 3) {
-      if (this.state.add) return;
-      if (this.state.delete || this.state.edit)
-        this.setState({
-          delete: false,
-          edit: false,
-        });
-      this.setState({
-        add: !this.state.edit,
-      });
+  handlerClick = (item) => {
+    let { status } = this.props.state;
+    if (status === 1) this.handlerDelete(item);
+    else if (status === 2) this.handlerEdit(item);
+    else if (status === 3) return;
+  };
+  handlerSubmit = () => {
+    let { status } = this.props.state;
+    if (status === 1) this.props.deleteContent(this.state.dataDelete);
+    else if (status === 2) {
+      if (!this.state.dataEdit.id) return;
+      this.props.editContent(this.state.dataEdit);
+      let tag = document.getElementById(this.state.dataEdit.id);
+      tag.removeChild(
+        document.getElementById(`input${this.state.dataEdit.id}`)
+      );
     }
-  };
-  handerChange = (el) => {
-    this.handerDelete(el);
-    this.handerEdit(el);
-  };
-  handerSubmit = () => {
-    this.props.deleteContent([...this.state.dataDelete]);
+    this.setState({
+      dataDelete: [],
+      dataEdit: {
+        id: "",
+        content: "",
+      },
+    });
   };
   render() {
-    let todoList = this.props.todoList;
+    let { todoList } = this.props.state;
     return (
       <>
-        <fieldset>
-          <legend>Select a maintenance drone:</legend>
-          <ul>
-            <li className="choose">
-              <input
-                type="radio"
-                name="drone"
-                id="delete"
-                className="choose"
-                onClick={() => this.handerCheckBox(1)}
-              />
-              <label htmlFor="delete">delete</label>
-            </li>
-            <li>
-              <input
-                type="radio"
-                name="drone"
-                id="edit"
-                className="choose"
-                onClick={() => this.handerCheckBox(2)}
-              />
-              <label htmlFor="edit">edit</label>
-            </li>
-            <li>
-              <input
-                type="radio"
-                name="drone"
-                id="add"
-                className="choose"
-                onClick={() => this.handerCheckBox(3)}
-              />
-              <label htmlFor="add">add</label>
-            </li>
-            <button onClick={() => this.handerSubmit()}>SUBMIT</button>
-          </ul>
-        </fieldset>
-
+        <button onClick={() => this.handlerSubmit()}>SUBMIT</button>
         <ul id="myUL">
           {todoList.map((item) => {
             return (
               <li
                 key={item.id}
                 id={item.id}
-                onClick={() => this.handerChange(item.id)}>
-                {item.content}
+                onClick={() => this.handlerClick(item.id)}>
+                <span>{item.content}</span>
               </li>
             );
           })}
