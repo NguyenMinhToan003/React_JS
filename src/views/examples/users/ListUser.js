@@ -1,6 +1,6 @@
 import React from "react";
 import Axios from "axios";
-import Logo from "../../../assets/images/jade.jpg";
+
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 class ListUser extends React.Component {
   state = {
@@ -20,9 +20,6 @@ class ListUser extends React.Component {
     let ListUser = this.state.ListUser;
     return (
       <>
-        <div className="image">
-          <img src={Logo}></img>
-        </div>
         <div>
           <div>Fetch all list user</div>
           <table id="customers">

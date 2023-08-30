@@ -7,32 +7,43 @@ import Navigation from "./views/examples/Nav/Nav";
 import ProTodoApp from "./views/ProTodoApp";
 import ListUser from "./views/examples/users/ListUser";
 import DetailUser from "./views/examples/users/detailUser";
+import Home from "./views/Home";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import rootReducer from "./stores/reducers/rootReducers";
+
+const reduxStore = createStore(rootReducer);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <Navigation />
-      <Switch>
-        <Route path="/todolist">
-          <TodoApp />
-        </Route>
-        <Route path="/protodolist">
-          <ProTodoApp />
-        </Route>
-        <Route path="/image">
-          <App />
-        </Route>
-        <Route path="/users" exact>
-          <ListUser />
-        </Route>
-        <Route path="/users/:id">
-          <DetailUser />
-        </Route>
-      </Switch>
-    </Router>
+    <Provider store={reduxStore}>
+      <Router>
+        <Navigation />
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/todolist">
+            <TodoApp />
+          </Route>
+          <Route path="/protodolist">
+            <ProTodoApp />
+          </Route>
+          <Route path="/image">
+            <App />
+          </Route>
+          <Route path="/users" exact>
+            <ListUser />
+          </Route>
+          <Route path="/users/:id">
+            <DetailUser />
+          </Route>
+        </Switch>
+      </Router>
+    </Provider>
   </React.StrictMode>
 );
 
