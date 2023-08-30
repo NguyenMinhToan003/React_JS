@@ -1,13 +1,15 @@
 import React from "react";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 class ProPendingTodo extends React.Component {
   commitDelete = () => {
     this.props.removeDataDelete();
+    toast.success("Delete complete");
   };
   editStatus = (event) => {
     event.target.classList.toggle("active");
     if (this.props.status === 2) this.props.changeStatus(1);
     else this.props.changeStatus(2);
+    toast.success("Now Edit ");
   };
   render() {
     let { dataDelete } = this.props;
