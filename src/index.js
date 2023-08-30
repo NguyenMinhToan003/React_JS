@@ -3,15 +3,36 @@ import ReactDOM from "react-dom/client";
 import "./styles/global.scss";
 import App from "./views/App";
 import TodoApp from "./views/TodoApp";
-
+import Navigation from "./views/examples/Nav/Nav";
+import ProTodoApp from "./views/ProTodoApp";
+import ListUser from "./views/examples/users/ListUser";
+import DetailUser from "./views/examples/users/detailUser";
 import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
-
-    <TodoApp />
+    <Router>
+      <Navigation />
+      <Switch>
+        <Route path="/todolist">
+          <TodoApp />
+        </Route>
+        <Route path="/protodolist">
+          <ProTodoApp />
+        </Route>
+        <Route path="/image">
+          <App />
+        </Route>
+        <Route path="/users" exact>
+          <ListUser />
+        </Route>
+        <Route path="/users/:id">
+          <DetailUser />
+        </Route>
+      </Switch>
+    </Router>
   </React.StrictMode>
 );
 

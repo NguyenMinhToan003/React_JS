@@ -4,8 +4,6 @@ class ChooseFile extends React.Component {
   myFunction = () => {
     const imgInp = document.querySelector("#imgInp");
     const formChoose = document.querySelector(".formChoose");
-
-    // const blah = document.getElementById("blah");
     imgInp.onchange = () => {
       let [...file] = imgInp.files;
       file.forEach((el) => {

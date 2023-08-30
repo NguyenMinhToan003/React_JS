@@ -4,6 +4,7 @@ import "../styles/App.scss";
 import MyComponent from "./examples/MyComponent";
 import ChildComponent from "./examples/ChildComponent";
 import ChooseFile from "./examples/ChooseFile";
+
 class App extends React.Component {
   state = {
     listUser: [{ id: "1", email: "nguyentoan@gmail.com", password: "774900" }],

@@ -60,7 +60,6 @@ class ViewTodo extends React.Component {
       });
     }
   };
-
   handlerClick = (item) => {
     let { status } = this.props.state;
     if (status === 1) this.handlerDelete(item);
