@@ -35,8 +35,9 @@ class DetailUser extends React.Component {
           <span style={{ color: "red" }}>last Name:</span> {user.last_name}
         </li>
         <li>
-          <img src={user.avatar}></img>
+          <img src={user.avatar} />
         </li>
+
         <li>
           <button onClick={() => this.backListUser()}>Back</button>
         </li>
