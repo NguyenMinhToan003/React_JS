@@ -10,11 +10,16 @@ const initState = {
 const rootReducer = (state = initState, action) => {
   switch (action.type) {
     case `DELETE_USER`:
-      let user = state.users;
-      user = user.filter((item) => item.id !== action.payload.id);
+      let nowListUser = state.users;
+      if (nowListUser && nowListUser.length >= 0) {
+        nowListUser = nowListUser.filter(
+          (item) => item.id !== action.payload.id
+        );
+      } else return state;
+
       return {
         ...state,
-        user,
+        nowListUser,
       };
 
     default:

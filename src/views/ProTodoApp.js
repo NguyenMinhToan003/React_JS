@@ -46,6 +46,15 @@ class ProTodoApp extends React.Component {
       dataDelete: [],
     });
   };
+  HandlerEdit = (el) => {
+    console.log(el);
+    let index = this.state.todoList.findIndex((item) => item.id === el.id);
+    let newTodo = this.state.todoList;
+    newTodo[index] = el;
+    this.setState({
+      todoList: newTodo,
+    });
+  };
   render() {
     return (
       <div className="wrapper">
@@ -58,6 +67,7 @@ class ProTodoApp extends React.Component {
             todoList={this.state.todoList}
             itemDelete={this.itemDelete}
             addDataDelete={this.addDataDelete}
+            HandlerEdit={this.HandlerEdit}
           />
         </ul>
         <ProPendingTodo

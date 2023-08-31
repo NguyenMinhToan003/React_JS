@@ -1,8 +1,10 @@
 import React from "react";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 class ProShowTodo extends React.Component {
   state = {
-    edit: "",
+    statusEdit: 0,
+    content: "",
+    id: "",
   };
   addDelete = (el, event) => {
     const content = event.target.textContent;
@@ -12,10 +14,33 @@ class ProShowTodo extends React.Component {
     else event.target.textContent = "delete";
     this.props.addDataDelete(el);
   };
-  editContent = (id, content, event) => {
+  HandlerEdit = (id, content, event) => {
+    if (this.state.statusEdit === 0)
+      this.setState({
+        statusEdit: 1,
+      });
+    else if (this.state.statusEdit === 1)
+      this.setState({
+        statusEdit: 2,
+      });
+    else
+      this.setState({
+        statusEdit: 0,
+      });
     this.setState({
-      edit: content,
+      id: id,
+      content: content,
     });
+  };
+  inputContent = (event) => {
+    let content = event.target.value;
+    this.setState({
+      content: content,
+    });
+  };
+  commitEditItem = () => {
+    this.props.HandlerEdit(this.state);
+    toast.success("Complete Edit");
   };
   render() {
     let { todoList, status } = this.props;
@@ -29,11 +54,19 @@ class ProShowTodo extends React.Component {
                 <li key={item.id}>
                   <span
                     onClick={(event) =>
-                      this.editContent(item.id, item.content, event)
+                      this.HandlerEdit(item.id, item.content, event)
                     }>
-                    {item.content}
+                    {this.state.statusEdit && this.state.id === item.id ? (
+                      <input
+                        value={this.state.content}
+                        onChange={(event) => this.inputContent(event)}></input>
+                    ) : (
+                      item.content
+                    )}
                   </span>
-                  <span className="icon">edit</span>
+                  <span className="icon" onClick={() => this.commitEditItem()}>
+                    edit
+                  </span>
                 </li>
               );
             else

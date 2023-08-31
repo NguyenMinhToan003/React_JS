@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import Logo from "../assets/images/jade.jpg";
 class Home extends React.Component {
   handerDeleteUser = (user) => {
-    console.log(user);
     this.props.deleteUserRedux(user);
   };
   render() {

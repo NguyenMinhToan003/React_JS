@@ -1,16 +1,24 @@
 import React from "react";
 import Axios from "axios";
-
+import Color from "../HOC/color";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
+
 class ListUser extends React.Component {
   state = {
     ListUser: [],
   };
-  componentDidMount() {
-    Axios.get("https://reqres.in/api/users?page=2").then((res) => {
-      this.setState({
-        ListUser: res && res.data && res.data.data ? res.data.data : [],
-      });
+  //? this is componentDidMount do not async await => then
+  // componentDidMount() {
+  //   Axios.get("https://reqres.in/api/users?page=2").then((res) => {
+  //     this.setState({
+  //       ListUser: res && res.data && res.data.data ? res.data.data : [],
+  //     });
+  //   });
+  // }
+  async componentDidMount() {
+    const res = await Axios.get("https://reqres.in/api/users?page=2");
+    this.setState({
+      ListUser: res && res.data && res.data.data ? res.data.data : [],
     });
   }
   detailUser = (item) => {
@@ -48,4 +56,4 @@ class ListUser extends React.Component {
   }
 }
 
-export default withRouter(ListUser);
+export default withRouter(Color(ListUser));
