@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import "./styles/global.scss";
 import App from "./views/App";
 import TodoApp from "./views/TodoApp";
@@ -8,16 +8,16 @@ import ProTodoApp from "./views/ProTodoApp";
 import ListUser from "./views/examples/users/ListUser";
 import DetailUser from "./views/examples/users/detailUser";
 import Home from "./views/Home";
+
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import rootReducer from "./stores/reducers/rootReducers";
-
 const reduxStore = createStore(rootReducer);
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+
+ReactDOM.render(
   <React.StrictMode>
     <Provider store={reduxStore}>
       <Router>
@@ -44,7 +44,8 @@ root.render(
         </Switch>
       </Router>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById(`root`)
 );
 
 // If you want to start measuring performance in your app, pass a function
